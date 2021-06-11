@@ -135,6 +135,23 @@ public class SwiftFlutterAudioRecorderPlugin: NSObject, FlutterPlugin, AVAudioRe
             if status == "recording" {
                 audioRecorder.pause()
                 status = "paused"
+
+                audioRecorder.updateMeters()
+
+                let duration = Int(audioRecorder.currentTime * 1000)
+                status = "paused"
+                var recordingResult = [String : Any]()
+                recordingResult["duration"] = duration
+                recordingResult["path"] = mPath
+                recordingResult["audioFormat"] = mExtension
+                recordingResult["peakPower"] = audioRecorder.peakPower(forChannel: channel)
+                recordingResult["averagePower"] = audioRecorder.averagePower(forChannel: channel)
+                recordingResult["isMeteringEnabled"] = audioRecorder.isMeteringEnabled
+                recordingResult["status"] = status
+
+                // audioRecorder.stop()
+                // audioRecorder = nil
+                result(recordingResult)
             }
             
             result(nil)
