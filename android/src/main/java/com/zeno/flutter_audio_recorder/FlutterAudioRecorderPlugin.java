@@ -46,7 +46,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
   private FileOutputStream mFileOutputStream = null;
   private List<FileOutputStream> mFileOutputStreamOnPause = new ArrayList<FileOutputStream>();
   private List<FileInputStream> mFileInputStreamOnPause = new ArrayList<FileInputStream>();
-  private List<Long> mFileInputStreamChannelSize = new ArrayList<Long>();
   private String mStatus = "unset";
   private double mPeakPower = -120;
   private double mAveragePower = -120;
@@ -200,7 +199,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
     mDataSizeOnPause.remove(durationList.get(durationIndex - 1));
     mFileOutputStreamOnPause.remove(mFileOutputStreamOnPause.get(mFileOutputStreamOnPause.size() - 1));
     //
-    mFileInputStreamChannelSize.remove(mFileInputStreamChannelSize.size() - 1);
     mFileInputStreamOnPause.remove(mFileInputStreamOnPause.size() - 1);
 
     result.success(null);
@@ -260,7 +258,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       Long channelSize = in.getChannel().size();
       Log.d(LOG_NAME, "============================== channelSize ==============================" + channelSize);
       mFileInputStreamOnPause.add(in);
-      mFileInputStreamChannelSize.add(channelSize);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -374,8 +371,9 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       out = new FileOutputStream(outFilename);
       totalAudioLen = in.getChannel().size();
       totalDataLen = totalAudioLen + 36;
-      Log.d(LOG_NAME, "============================== copyWaveFile==============================" + totalAudioLen);
-      Log.d(LOG_NAME, "============================== totalDataLen==============================" + totalDataLen);
+      Log.d(LOG_NAME, "============================== mFileInputStreamOnPause.size ==============================" + mFileInputStreamOnPause.size());
+      Log.d(LOG_NAME, "============================== copyWaveFile ==============================" + totalAudioLen);
+      Log.d(LOG_NAME, "============================== totalDataLen ==============================" + totalDataLen);
       Log.d(LOG_NAME, "============================== getChannel ==============================" + in.getChannel().size());
       WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
               longSampleRate, channels, byteRate);
