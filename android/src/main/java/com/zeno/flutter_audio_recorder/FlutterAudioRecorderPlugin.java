@@ -134,8 +134,8 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       case "duration":
         getRecDuration(call, result);
         break;
-      case "update":
-        handleUpdate(call, result);
+      case "updateAudioFile":
+        handleUpdateAudioFile(call, result);
         break;
 
       default:
@@ -324,7 +324,8 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
   }
 
-  private void handleUpdate(MethodCall call, Result result) {
+  private void handleUpdateAudioFile(MethodCall call, Result result) {
+    Log.d(LOG_NAME, "============================== update method called ==============================");
   /*  mStatus = "paused";
     mPeakPower = -120;
     mAveragePower = -120;
@@ -352,8 +353,8 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
     currentResult.put("averagePower", mAveragePower);
     currentResult.put("isMeteringEnabled", true);
     currentResult.put("status", mStatus);*/
-
     copyWaveFile(getTempFilename(), mFilePath);
+    Log.d(LOG_NAME, "============================== File updated ==============================");
     result.success(null);
 //    deleteTempFile();
 

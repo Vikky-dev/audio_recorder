@@ -155,6 +155,9 @@ public class SwiftFlutterAudioRecorderPlugin: NSObject, FlutterPlugin, AVAudioRe
             }
             
             result(nil)
+        case "updateAudioFile":
+                print("updateAudioFile")
+                result(nil)
         case "resume":
             print("resume")
         
