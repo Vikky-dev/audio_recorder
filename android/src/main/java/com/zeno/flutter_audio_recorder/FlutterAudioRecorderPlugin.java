@@ -358,6 +358,7 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       totalDataLen = totalAudioLen + 36;
       Log.d(LOG_NAME, "============================== copyWaveFile==============================" + totalAudioLen);
       Log.d(LOG_NAME, "============================== totalDataLen==============================" + totalDataLen);
+      Log.d(LOG_NAME, "============================== getChannel ==============================" + in.getChannel().size());
       WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
               longSampleRate, channels, byteRate);
 
