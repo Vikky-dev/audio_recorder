@@ -339,6 +339,19 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
     }
   }
 
+  private void resetTempFile() {
+    File file = new File(getTempFilename());
+    if(file.exists()) {
+      file.delete();
+    }
+    try {
+      file.createNewFile();
+    }
+    catch (Exception e){
+      e.printStackTrace();
+    }
+  }
+
   private String getTempFilename() {
     String filepath = mFilePath + ".temp";
     return filepath;
@@ -373,6 +386,8 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
       in.close();
       out.close();
+      resetTempFile();
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
