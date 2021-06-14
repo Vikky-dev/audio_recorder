@@ -247,22 +247,23 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
   }
 
   private void handlePause(MethodCall call, Result result) {
+    if(!mStatus.equals("paused")){
+      mDataSizeOnPause.add(mDataSize);
+      mFileOutputStreamOnPause.add(mFileOutputStream);
+      try {
+        FileInputStream in = new FileInputStream(getTempFilename());
+        Long channelSize = in.getChannel().size();
+        Log.d(LOG_NAME, "============================== channelSize ==============================" + channelSize);
+        mFileInputStreamOnPause.add(in);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
     mStatus = "paused";
     mPeakPower = -120;
     mAveragePower = -120;
     mRecorder.stop();
     mRecordingThread = null;
-    mDataSizeOnPause.add(mDataSize);
-    mFileOutputStreamOnPause.add(mFileOutputStream);
-    try {
-      FileInputStream in = new FileInputStream(getTempFilename());
-      Long channelSize = in.getChannel().size();
-      Log.d(LOG_NAME, "============================== channelSize ==============================" + channelSize);
-      mFileInputStreamOnPause.add(in);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
 //    result.success(null);
 
     // Return Recording Object
