@@ -247,7 +247,7 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
   }
 
   private void handlePause(MethodCall call, Result result) {
-    if(!mStatus.equals("paused")){
+    if(mStatus.equals("recording")){
       mDataSizeOnPause.add(mDataSize);
       mFileOutputStreamOnPause.add(mFileOutputStream);
       try {
