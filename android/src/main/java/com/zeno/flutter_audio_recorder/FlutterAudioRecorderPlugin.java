@@ -372,8 +372,7 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 //      in = new FileInputStream(inFilename);
       in = mFileInputStreamOnPause.size() > 0 ? mFileInputStreamOnPause.get(mFileInputStreamOnPause.size() - 1) : new FileInputStream(inFilename);
       out = new FileOutputStream(outFilename);
-      FileChannel fc = in.getChannel();
-      totalAudioLen = getDuration();//in.getChannel().size();
+      totalAudioLen = in.getChannel().size();
       totalDataLen = totalAudioLen + 36;
       Log.d(LOG_NAME, "============================== copyWaveFile==============================" + totalAudioLen);
       Log.d(LOG_NAME, "============================== totalDataLen==============================" + totalDataLen);
