@@ -134,6 +134,9 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       case "duration":
         getRecDuration(call, result);
         break;
+      case "update":
+        handleUpdate(call, result);
+        break;
 
       default:
         result.notImplemented();
@@ -183,7 +186,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
     result.success(initResult);
   }
 
-
   private void handleDelete(MethodCall call, Result result) {
     Log.d(LOG_NAME, "Delete method called");
 
@@ -203,7 +205,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
     result.success(null);
   }
-
 
   private void handleCurrent(MethodCall call, Result result) {
 
@@ -323,6 +324,42 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
   }
 
+  private void handleUpdate(MethodCall call, Result result) {
+  /*  mStatus = "paused";
+    mPeakPower = -120;
+    mAveragePower = -120;
+    mRecorder.stop();
+    mRecordingThread = null;
+    mDataSizeOnPause.add(mDataSize);
+    mFileOutputStreamOnPause.add(mFileOutputStream);
+    try {
+      FileInputStream in = new FileInputStream(getTempFilename());
+      Long channelSize = in.getChannel().size();
+      Log.d(LOG_NAME, "============================== channelSize ==============================" + channelSize);
+      mFileInputStreamOnPause.add(in);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }*/
+
+//    result.success(null);
+
+    // Return Recording Object
+    /*HashMap<String, Object> currentResult = new HashMap<>();
+    currentResult.put("duration", getDuration() * 1000);
+    currentResult.put("path", mFilePath);
+    currentResult.put("audioFormat", mExtension);
+    currentResult.put("peakPower", mPeakPower);
+    currentResult.put("averagePower", mAveragePower);
+    currentResult.put("isMeteringEnabled", true);
+    currentResult.put("status", mStatus);*/
+
+    copyWaveFile(getTempFilename(), mFilePath);
+    result.success(null);
+//    deleteTempFile();
+
+//    result.success(currentResult);
+  }
+
   private void processAudioStream() {
     Log.d(LOG_NAME, "processing the stream: " + mStatus);
     int size = bufferSize;
@@ -374,7 +411,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       Log.d(LOG_NAME, "============================== mFileInputStreamOnPause.size ==============================" + mFileInputStreamOnPause.size());
       Log.d(LOG_NAME, "============================== copyWaveFile ==============================" + totalAudioLen);
       Log.d(LOG_NAME, "============================== totalDataLen ==============================" + totalDataLen);
-      Log.d(LOG_NAME, "============================== getChannel ==============================" + in.getChannel().size());
       WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
               longSampleRate, channels, byteRate);
 

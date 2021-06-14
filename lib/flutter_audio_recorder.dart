@@ -118,6 +118,10 @@ class FlutterAudioRecorder {
     return _channel.invokeMethod('resume');
   }
 
+  Future update() async {
+    return _channel.invokeMethod('update');
+  }
+
   /// Request the recording to stop
   /// Once its stopped, the recording file will be finalized
   /// and will not be start, resume, pause anymore.
