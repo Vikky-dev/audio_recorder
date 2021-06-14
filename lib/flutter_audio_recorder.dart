@@ -118,8 +118,8 @@ class FlutterAudioRecorder {
     return _channel.invokeMethod('resume');
   }
 
-  Future update() async {
-    return _channel.invokeMethod('update');
+  Future updateAudioFile() async {
+    return _channel.invokeMethod('updateAudioFile');
   }
 
   /// Request the recording to stop
