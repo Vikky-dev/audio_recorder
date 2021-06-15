@@ -332,7 +332,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       updatePowers(bData);
         try {
           mFileOutputStream.write(bData);
-          Log.d(LOG_NAME, "================= xxxxxx ================"+ mFileOutputStream.getChannel().size());
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -368,9 +367,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       out = new FileOutputStream(outFilename);
       totalAudioLen = in.getChannel().size();
       totalDataLen = totalAudioLen + 36;
-
-      Log.d(LOG_NAME, "================= totalAudioLen ================"+ totalAudioLen);
-      Log.d(LOG_NAME, "================= totalDataLen ================"+ totalDataLen);
 
       WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
               longSampleRate, channels, byteRate);
