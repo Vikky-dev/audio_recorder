@@ -266,7 +266,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
     copyWaveFile(getTempFilename(), mFilePath);
 //    deleteTempFile();
-
     result.success(currentResult);
   }
 
@@ -363,6 +362,7 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
       Log.d(LOG_NAME, "================= totalAudioLen ================"+ totalAudioLen);
       Log.d(LOG_NAME, "================= totalDataLen ================"+ totalDataLen);
+      Log.d(LOG_NAME, "================= mFileOutputStream ================"+ mFileOutputStream);
 
       WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
               longSampleRate, channels, byteRate);
