@@ -324,6 +324,7 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       updatePowers(bData);
         try {
           mFileOutputStream.write(bData);
+          Log.d(LOG_NAME, "================= xxxxxx ================"+ mFileOutputStream.getChannel().size());
         } catch (IOException e) {
           e.printStackTrace();
         }
