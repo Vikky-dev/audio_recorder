@@ -362,7 +362,7 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
       Log.d(LOG_NAME, "================= totalAudioLen ================"+ totalAudioLen);
       Log.d(LOG_NAME, "================= totalDataLen ================"+ totalDataLen);
-      Log.d(LOG_NAME, "================= mFileOutputStream ================"+ mFileOutputStream);
+      Log.d(LOG_NAME, "================= mFileOutputStream ================"+ mFileOutputStream.getChannel().size());
 
       WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
               longSampleRate, channels, byteRate);
