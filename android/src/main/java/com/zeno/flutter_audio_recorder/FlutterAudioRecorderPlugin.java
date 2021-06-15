@@ -266,6 +266,11 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
     copyWaveFile(getTempFilename(), mFilePath);
 
+//    deleteTempFile();
+    result.success(currentResult);
+  }
+
+  private void handleResume(MethodCall call, Result result) {
     try {
       mFileOutputStream.close();
       mFileOutputStream = new FileOutputStream(getTempFilename(), true);
@@ -273,11 +278,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
       result.error("", "cannot find the file", null);
       return;
     }
-//    deleteTempFile();
-    result.success(currentResult);
-  }
-
-  private void handleResume(MethodCall call, Result result) {
     mStatus = "recording";
     mRecorder.startRecording();
     startThread();
@@ -371,7 +371,6 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
 
       Log.d(LOG_NAME, "================= totalAudioLen ================"+ totalAudioLen);
       Log.d(LOG_NAME, "================= totalDataLen ================"+ totalDataLen);
-      Log.d(LOG_NAME, "================= mFileOutputStream ================"+ mFileOutputStream.getChannel().size());
 
       WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
               longSampleRate, channels, byteRate);
