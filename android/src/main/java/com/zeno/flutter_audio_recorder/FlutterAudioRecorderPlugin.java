@@ -265,6 +265,14 @@ public class FlutterAudioRecorderPlugin implements MethodCallHandler, PluginRegi
     currentResult.put("status", mStatus);
 
     copyWaveFile(getTempFilename(), mFilePath);
+
+    try {
+      mFileOutputStream.close();
+      mFileOutputStream = new FileOutputStream(getTempFilename(), true);
+    } catch (Exception e) {
+      result.error("", "cannot find the file", null);
+      return;
+    }
 //    deleteTempFile();
     result.success(currentResult);
   }
